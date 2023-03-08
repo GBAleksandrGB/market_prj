@@ -1,0 +1,45 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="mt-4 mb-4 row justify-content-center">
+        <div class="text-center">
+            Продукт
+            <strong>
+                {{ object.category.name|title }} {{ object.name|title }}
+            </strong>
+        </div>
+        <img src="/media/{{ object.image|default:'accommodation_img/default.jpg' }}"
+             alt="{{ object.name }}"
+             style="width: 800px">
+        <div class="mt-4 text-center">
+            <p><b>цена: </b>{{ object.price }} руб.</p>
+            <p><b>количество ночей: </b>{{ object.availability }}</p>
+            <p><b>в каталоге: </b>{% if object.is_active %}да{% else %}нет{% endif %}</p>
+            <button>
+                <a href="{% url 'admin:accommodation_update' object.pk %}"
+                   style="text-decoration: none">
+                    редактировать
+                </a>
+            </button>
+            <button>
+                <a href="{% url 'admin:accommodation_delete' object.pk %}"
+                   style="text-decoration: none">
+                    удалить
+                </a>
+            </button>
+            <button>
+                <a href="{% url 'admin:accommodations' object.country.pk %}"
+                   style="text-decoration: none">
+                    назад
+                </a>
+            </button>
+        </div>
+        <div class="text-center mt-4">
+            <b>краткая информация</b>
+            <p>{{ object.short_desc }}</p>
+            <b>подробная информация</b>
+            <p>{{ object.short_desc }}</p>
+        </div>
+    </div>
+{% endblock %}

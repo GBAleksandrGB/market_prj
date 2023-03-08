@@ -1,0 +1,28 @@
+{% if object.status == 'FM' %}
+    <button class="btn btn-outline-secondary me-2 mb-2"
+            style="width: 12em">
+        <a style="color: black; text-decoration: none"
+           href="{% url 'ordersapp:order_forming_complete' object.pk %}">
+            совершить покупку
+        </a>
+    </button>
+    <button class="btn btn-outline-secondary me-2 mb-2"
+            style="width: 12em">
+        <a style="color: black; text-decoration: none"
+           href="{% url 'ordersapp:order_delete' object.pk %}">
+            удалить
+        </a>
+    </button>
+{% endif %}
+<button class="btn btn-outline-secondary me-2 mb-2"
+        style="width: 12em">
+    <a style="color: black; text-decoration: none"
+       href="{% url 'ordersapp:orders_list' %}">
+        к списку заказов
+    </a>
+</button>
+<button class="btn btn-outline-secondary me-2 mb-2"
+        style="width: 12em">
+    <a style="color: black; text-decoration: none"
+       href="{% url 'main' %}">на главную</a>
+</button>

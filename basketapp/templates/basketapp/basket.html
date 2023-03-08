@@ -1,0 +1,22 @@
+{% extends 'basketapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row mt-2 justify-content-center">
+        <div class="basket_list mt-4 col-auto">
+            {% include 'basketapp/includes/inc_basket_list.html' %}
+        </div>
+        <div class="mt-4 text-center">
+            <button class="btn btn-outline-secondary">
+                <a style="color: black; text-decoration: none" href="{% url 'main' %}">
+                    на главную
+                </a>
+            </button>
+            <button class="btn btn-outline-success">
+                <a style="color: black; text-decoration: none" href="{% url 'order:order_create' %}">
+                    к оформлению
+                </a>
+            </button>
+        </div>
+    </div>
+{% endblock %}

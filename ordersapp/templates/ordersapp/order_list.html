@@ -1,0 +1,65 @@
+{% extends 'ordersapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="h2 text-center mt-4">
+        Ваши заказы,
+        {% if user.first_name %}
+            {{ user.first_name|title }}
+        {% else %}
+            {{ user.username }}
+        {% endif %}
+    </div>
+    <table class="table mt-4 table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Создан</th>
+                <th scope="col">Обновлен</th>
+                <th scope="col">Статус</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in object_list %}
+            {% if item.is_active %}
+                <tr>
+                    <td>{{ item.pk }}</td>
+                    <td>{{ item.created|date:"Y-m-d H:i:s" }}</td>
+                    <td>{{ item.updated|date:"Y-m-d H:i:s" }}</td>
+                    <td>{{ item.get_status_display }}</td>
+                    <td>
+                        <a href="{% url 'ordersapp:order_read' item.pk %}">
+                            посмотреть
+                        </a><br>
+                        {% if item.status == 'FM' %}
+                            <a href="{% url 'ordersapp:order_update' item.pk %}">
+                                редактировать
+                            </a><br>
+                        {% endif %}
+                        {% if item.status == 'FM' %}
+                            <a href="{% url 'ordersapp:order_delete' item.pk %}">
+                                удалить
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center">
+        <button class="btn btn-outline-success">
+            <a style="color: black; text-decoration: none"
+               href="{% url 'main' %}">
+                на главную
+            </a>
+        </button>
+        <button class="btn btn-outline-success">
+            <a style="color: black; text-decoration: none"
+               href="{% url 'ordersapp:order_create' %}">
+                новый
+            </a>
+        </button>
+    </div>
+{% endblock %}

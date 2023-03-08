@@ -1,0 +1,22 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="mt-4 d-flex flex-column align-items-center">
+        <form class="col-auto"
+              method="post"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-primary"
+                   type="submit"
+                   value="сохранить">
+        </form>
+        <button class="mt-4 mb-4 btn btn-danger">
+            <a href="{% url 'admin:countries' %}"
+               style="text-decoration: none; color: white">
+                к списку стран
+            </a>
+        </button>
+    </div>
+{% endblock %}

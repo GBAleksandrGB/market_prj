@@ -1,0 +1,32 @@
+{% extends "ordersapp/base.html" %}
+{% load static %}
+{% load tagz %}
+
+{% block content %}
+    <div class="mt-4 row justify-content-around">
+        <div class="mt-4 col-auto h4">
+            {% include 'ordersapp/includes/inc_order_summary.html' %}
+        </div>
+        {% for item in object.orderitems.select_related %}
+            <div class="mt-4 col-auto text-center">
+                <img style="width: 300px"
+                     src="{{ item.accommodation.image|media_acc }}"
+                     alt="{{ item.accommodation.short_desc }}">
+                <div class="mt-2 h5">
+                    <span>{{ item.accommodation.country.name|title }}</span>
+                    <span>{{ item.accommodation.name|title }}</span>
+                    <span>{{ item.accommodation.price }}&nbspруб.</span>
+                    <span>x {{ item.nights }}
+                    {% if item.nights == 1 %} ночь
+                    {% elif 1 < item.nights and item.nights < 5 %} ночи
+                    {% else %} ночей
+                    {% endif %}</span>
+                    <span class="product_cost"> = {{ item.get_accommodation_cost }}&nbspруб.</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="mt-4 d-flex flex-wrap justify-content-center">
+        {% include 'ordersapp/includes/inc_order_actions.html' %}
+    </div>
+{% endblock %}

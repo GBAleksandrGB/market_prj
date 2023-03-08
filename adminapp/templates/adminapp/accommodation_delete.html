@@ -1,0 +1,32 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="mt-4 row justify-content-center">
+        <div class="h2 col-auto text-center">
+            Уверены, что хотите удалить {{ accommodation_to_delete.username }}
+            {% if accommodation_to_delete.first_name %}
+                ({{ accommodation_to_delete.first_name|title }}
+                {% if accommodation_to_delete.last_name %}
+                    {{ accommodation_to_delete.last_name|title }}
+                {% endif %})
+            {% endif %}?
+        </div>
+        <div class="row justify-content-center mt-4">
+            <form action="{% url 'admin:accommodation_delete' accommodation_to_delete.pk %}"
+                  method="post"
+                  class="col-auto">
+                {% csrf_token %}
+                <input class="btn btn-danger"
+                       type="submit"
+                       value="удалить">
+            </form>
+            <button class="btn btn-success col-auto">
+                <a href="{% url 'admin:accommodations' accommodation_to_delete.country.pk%}"
+                   style="text-decoration: none; color:white">
+                    отмена
+                </a>
+            </button>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+<ul class="nav justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link"
+           aria-current="page"
+           href="{% url 'main' %}">
+            на сайт
+        </a>
+    </li>
+    <li class="nav-item">
+        <a
+           href="{% url 'admin:users' %}"
+           class="nav-link">
+            пользователи
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'admin:countries' %}"
+           class="nav-link">
+            страны
+            {% if country %}
+                <span>{{ country.name }}</span>
+            {% endif %}
+        </a>
+    </li>
+</ul>

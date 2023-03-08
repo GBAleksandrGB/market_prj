@@ -1,0 +1,53 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% load tagz %}
+
+{% block content %}
+    <div class="mt-4 mb-4 row justify-content-center">
+        <button class="btn btn-danger col-auto">
+            <a href="{% url 'admin:accommodation_create' country.pk %}"
+               style="text-decoration: none; color: white">
+                новый продукт
+            </a>
+        </button>
+        {% for object in objects %}
+            <div class="row mt-4 justify-content-around align-items-center"
+                 style="{% if not object.is_active %}opacity: 50%{% endif %}">
+                <img src="{{ object.image | media_acc }}"
+                     alt="{{ object.name }}"
+                     style="width: 500px">
+                <div class="col-auto text-center">
+                    {{ object.name|title }}
+                    <div class="row mt-2 justify-content-center gap-2">
+                        <button class="col-auto">
+                            <a href="{% url 'admin:accommodation_read' object.pk %}"
+                               style="text-decoration: none">
+                                подробнее
+                            </a>
+                        </button>
+                        <button class="col-auto">
+                            <a href="{% url 'admin:accommodation_update' object.pk %}"
+                               style="text-decoration: none">
+                                редактировать
+                            </a>
+                        </button>
+                        <button class="col-auto">
+                            <a href="{% url 'admin:accommodation_delete' object.pk %}"
+                               style="text-decoration: none">
+                                удалить
+                            </a>
+                        </button>
+                        <div class="row mt-3">
+                            <p><b>цена:</b> {{ object.price }} руб.</p>
+                            <p><b>количество:</b> {{ object.availability }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2 text-center">
+                    {{ object.short_desc }}
+                </div>
+                <hr class="mt-2">
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

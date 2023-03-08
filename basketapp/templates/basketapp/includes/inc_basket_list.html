@@ -1,0 +1,30 @@
+{% for reservation in basket_items %}
+    <div class="row">
+        <img style="width: 476px"
+             class="col-auto mt-2"
+             src="/media/{{ reservation.accommodation.image }}"
+             alt="{{ reservation.accommodation.short_desc }}">
+        <div class="col-auto lh-1 align-self-center mt-2">
+            <p><b>Страна: </b>{{ reservation.accommodation.country.name|title }}</p>
+            <p><b>Размещение: </b>{{ reservation.accommodation.name|title }}</p>
+            <p><b>Стоимость суток: </b>{{ reservation.accommodation.price }}&nbspруб.</p>
+            <p><b>Количество ночей: </b>{{ reservation.nights }}</p>
+            <input type="number"
+                   name="{{ reservation.pk }}"
+                   min="0"
+                   value="{{ reservation.nights }}">
+            <button class="btn btn-danger btn-sm">
+                <a style="color: white; text-decoration: none"
+                   href="{% url 'basket:remove' reservation.pk %}">
+                    удалить
+                </a>
+            </button>
+        </div>
+    </div>
+{% endfor %}
+{% if basket_items %}
+    <div class="mt-4 text-center">
+        Забронировано
+        {{ basket_items.0.total_nights }} суток, общей стоимостью {{ basket_items.0.total_cost }} руб.
+    </div>
+{% endif %}

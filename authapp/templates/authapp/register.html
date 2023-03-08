@@ -1,0 +1,21 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-4 row justify-content-center">
+        <div class="col-auto">
+            <div class="h2 text-center">
+                Регистрация нового пользователя
+            </div>
+            <form class="mt-4"
+                  action="{% url 'auth:register' %}" method="post"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ register_form.as_p }}
+                <input class="btn btn-danger form-control"
+                       type="submit"
+                       value="зарегистрироваться">
+            </form>
+        </div>
+    </div>
+{% endblock %}
